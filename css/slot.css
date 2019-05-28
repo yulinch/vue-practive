@@ -1,0 +1,32 @@
+@charset "UTF-8";
+@import url(../node_modules/normalize.css/normalize.css);
+body {
+  font-family: 'Open Sans', 'sans-serif', '微軟正黑體', 'Ping-Fang'; }
+
+a {
+  text-decoration: none; }
+  a:active, a:visited {
+    color: #000; }
+
+* {
+  box-sizing: border-box; }
+
+ul, li {
+  margin: 0;
+  padding: 0;
+  list-style: none; }
+
+.vue-slot .side-menu h6 {
+  margin: 20px 0 10px; }
+
+.vue-slot .side-menu li {
+  margin: 3px 0; }
+
+.vue-slot .side-menu a {
+  display: inline-block;
+  font-size: 13px;
+  color: #000;
+  padding: 5px 10px;
+  background-color: #efefef; }
+  .vue-slot .side-menu a:hover {
+    background-color: #d6d6d6; }

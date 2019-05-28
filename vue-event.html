@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0">
+	<title>title</title>
+	<link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+	<div id="app" class="form">
+		<p>Name: {{ name }}</p>
+		<p>Email: {{ email }}</p>
+		<p>Tel: {{ tel }}</p>
+		<data-form :form-name="name" :form-email="email" :form-tel="tel"></data-form>
+	</div>
+	<script type="test/x-template" id="data-form">
+		<div>
+			<ul>
+			  <li>name: <input type="text" v-model="innerName"></li>
+			  <li>email: <input type="text" v-model="innerEmail"></li>
+			  <li>tel: <input type="text" v-model="innerTel"></li>
+			</ul>
+			<button @click="updateData">change</button>
+	  	</div>
+	</script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.js"></script>
+	<script>
+		var bus = new Vue();
+
+		Vue.component('data-form', {
+			template: `#data-form`,
+			data() {
+				return {
+					innerName: this.formName,
+					innerEmail: this.formEmail,
+					innerTel: this.formTel
+				}
+			},
+			props: {
+				formName: String,
+				formEmail: String,
+				formTel: String
+			},
+			methods: {
+				updateData: function(){
+					bus.$emit('update', this.innerEmail);
+				}
+			}
+		});
+
+		new Vue({
+			el: "#app",
+			data: {
+				name: "May",
+				email: "maySmith@household.com",
+				tel: "13-4651-22-97",
+			},
+			created() {
+				var that = this;
+				bus.$on('update', function(val){
+					that.email = val;
+				})
+			}
+		})
+	</script>
+</body>
+
+</html>

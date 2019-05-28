@@ -1,0 +1,90 @@
+@charset "UTF-8";
+@import url(../node_modules/normalize.css/normalize.css);
+body {
+  font-family: 'Open Sans', 'sans-serif', '微軟正黑體', 'Ping-Fang'; }
+
+a {
+  text-decoration: none; }
+  a:active, a:visited {
+    color: #000; }
+
+* {
+  box-sizing: border-box; }
+
+ul, li {
+  margin: 0;
+  padding: 0;
+  list-style: none; }
+
+.vue-tab {
+  max-width: 580px;
+  margin: auto;
+  background-color: #a0bed0;
+  font-family: 'Gudea', sans-serif; }
+
+.tab-list {
+  display: flex;
+  width: 100%;
+  text-align: center; }
+  .tab-list li {
+    width: 25%;
+    font-size: 18px; }
+    .tab-list li a {
+      position: relative;
+      display: block;
+      padding: 10px 5px; }
+      .tab-list li a:after {
+        content: "";
+        position: absolute;
+        display: block;
+        width: 100%;
+        height: 2px;
+        background-color: #ddd;
+        left: 0;
+        bottom: 0;
+        transition: all .35s ease; }
+      .tab-list li a.current, .tab-list li a:hover {
+        color: lightblue; }
+        .tab-list li a.current:after, .tab-list li a:hover:after {
+          width: 0;
+          left: 50%;
+          transition: all .35s ease; }
+      .tab-list li a.current {
+        background-color: #6d9bb7; }
+
+.tab-content > div {
+  padding: 15px 20px;
+  background-color: #6d9bb7; }
+
+.tabs {
+  max-width: 580px;
+  margin: 50px auto; }
+  .tabs ul {
+    display: flex;
+    border-bottom: 1px solid #ddd; }
+    .tabs ul li a {
+      display: inline-block;
+      position: relative;
+      padding: 8px 15px;
+      color: #aaa; }
+      .tabs ul li a:after {
+        content: "";
+        display: block;
+        position: absolute;
+        width: 100%;
+        height: 1px;
+        left: 0;
+        bottom: -1px;
+        opacity: 0; }
+      .tabs ul li a.is-active {
+        color: orange; }
+        .tabs ul li a.is-active:after {
+          opacity: 1;
+          background-color: orange; }
+      .tabs ul li a:hover {
+        color: #333; }
+        .tabs ul li a:hover:after {
+          opacity: 1;
+          background-color: #333; }
+  .tabs .tab-detail {
+    margin-top: 15px; }
