@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0">
+	<title>tabs basic</title>
+	<link href="https://fonts.googleapis.com/css?family=Gudea&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="../css/tab.css">
+</head>
+
+<body>
+	<div id="app">
+		<div class="vue-tab">
+			<ul class="tab-list">
+				<li><a href="javascript:;" @click="changeView('view1')" :class="{current : currentView === 'view1'}">view1</a></li>
+				<li><a href="javascript:;" @click="changeView('view2')" :class="{current : currentView === 'view2'}">view2</a></li>
+				<li><a href="javascript:;" @click="changeView('view3')" :class="{current : currentView === 'view3'}">view3</a></li>
+				<li><a href="javascript:;" @click="changeView('view4')" :class="{current : currentView === 'view4'}">view4</a></li>
+			</ul>
+			<div class="tab-content">
+				<keep-alive>
+					<component :is="currentView"></component>
+				</keep-alive>
+			</div>
+		</div>
+
+	</div>
+	<script type="test/x-template" id="content1">
+		<div>
+			<h5>Tab 1</h5>
+			<p>Fue tempore mollitia ipsa distinctio obcaecati animi acique sint reprehenderit molestias offici ex amet. Bepturi aspernatur architecto, ipsum magnam odit saepe. Dolore!</p>
+			<p><button @click="add">count</button><span> {{ count }}</span></p>
+		</div>
+	</script>
+	<script type="test/x-template" id="content2">
+		<div>
+			<h5>Tab 2</h5>
+			<p>Ea, cupiditate. Quibusdam ipsum assumenda, pariatur optio iusto non illum dolor molestias fuga quae eligendi nostrum eius natus hic similique quam alias. Minima, dolores.</p>
+			<span> {{ count }}</span>
+		</div>
+	</script>
+	<script type="test/x-template" id="content3">
+		<div>
+			<h5>Tab 3</h5>
+			<p>Fugiat ea aperiam pariatur, dolor. Quod similique magnam corporis numquam labore maiores ipsam rerum eos facere, commodi recusandae dolor.</p>
+		</div>
+	</script>
+	<script type="test/x-template" id="content4">
+		<div>
+			<h5>Tab 4</h5>
+			<p>Dolores a adipisci cumque earum ratione numquam eum.</p>
+		</div>
+	</script>
+	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.js"></script>
+	<script>
+		Vue.component('view1', {
+			template: '#content1',
+			activated(){
+				console.log("content1 activated.");
+			},
+			deactivated(){
+				console.log("content1 deactivated.");
+			},
+			data: function(){
+			    return {
+			    	count: 0,
+			    }
+			},
+			methods: {
+			    add: function(){
+			    	this.count ++;
+			    }
+			}
+		});
+
+		Vue.component('view2', {
+			template: '#content2',
+			data: function(){
+			    return {
+			    	count: 0,
+			    }
+			},
+			activated(){
+				this.count++;
+			}
+		});
+
+		Vue.component('view3', {
+			template: '#content3'
+		});
+
+		Vue.component('view4', {
+			template: '#content4'
+		});
+
+		new Vue({
+			el: "#app",
+			data: {
+				currentView: 'view1',
+		  	},
+		  	methods: {
+		  		changeView: function(view){
+		  			this.currentView = view;
+		  			console.log(view);
+		  		}
+		  	}
+		})
+	</script>
+</body>
+
+</html>

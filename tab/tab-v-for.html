@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0">
+	<title>tabs with v-for</title>
+	<link href="https://fonts.googleapis.com/css?family=Gudea&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="../css/tab.css">
+</head>
+
+<body>
+	<div id="app">
+		<div class="vue-tab">
+			<ul class="tab-list">
+				<li v-for="tab in tabs"><a href="javascript:;" @click="changeView(tab)" :class="{current : currentView === tab}">{{tab}}</a></li>
+			</ul>
+			<div class="tab-content">
+				<keep-alive>
+					<component :is="currentView"></component>
+				</keep-alive>
+			</div>
+		</div>
+	</div>
+
+	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.js"></script>
+	<script>
+		Vue.component('Home', {
+			template: `<div>
+				<h5>Home</h5>
+				<p>Fue tempore mollitia ipsa distinctio obcaecati animi acique sint reprehenderit molestias offici ex amet. Bepturi aspernatur architecto, ipsum magnam odit saepe. Dolore!</p>
+				<p><button @click="add">count</button><span> {{ count }}</span></p>
+			</div>`,
+			data: function(){
+			    return {
+			    	count: 0,
+			    }
+			},
+			methods: {
+			    add: function(){
+			    	this.count ++;
+			    }
+			}
+		});
+
+		Vue.component('About', {
+			template: `<div>
+				<h5>About</h5>
+				<p>Ea, cupiditate. Quibusdam ipsum assumenda, pariatur optio iusto non illum dolor molestias fuga quae eligendi nostrum eius natus hic similique quam alias. Minima, dolores.</p>
+				<span> {{ count }}</span>
+			</div>`,
+			data: function(){
+			    return {
+			    	count: 0,
+			    }
+			},
+			activated(){
+				this.count++;
+			}
+		});
+
+		Vue.component('Service', {
+			template: `<div>
+				<h5>Service</h5>
+				<p>Fugiat ea aperiam pariatur, dolor. Quod similique magnam corporis numquam labore maiores ipsam rerum eos facere, commodi recusandae dolor.</p>
+			</div>`
+		});
+
+		Vue.component('Contact', {
+			template: `<div>
+				<h5>Contact</h5>
+				<p>Dolores a adipisci cumque earum ratione numquam eum.</p>
+			</div>`
+		});
+
+		new Vue({
+			el: "#app",
+			data: {
+				currentView: 'Home',
+				tabs: ['Home', 'About', 'Service', 'Contact']
+		  	},
+		  	methods: {
+		  		changeView: function(view){
+		  			this.currentView = view;
+		  		}
+		  	}
+		})
+	</script>
+</body>
+
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0">
+	<title>title</title>
+	<link href="https://fonts.googleapis.com/css?family=Gudea&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="css/lightbox.css">
+</head>
+
+<body>
+	<div id="app" class="vue-lightbox">
+	    <ul>
+	    	<li><a href="javascript:;" @click="openBox('slot1')">註冊事項</a></li>
+	    	<li><a href="javascript:;" @click="openBox('slot2')">網站公告</a></li>
+	    	<li><a href="javascript:;" @click="openBox('slot3')">隱私權政策</a></li>
+	    </ul>
+
+	    <box v-if="showBox" @close='showBox = false'>
+	    	<component :is="currentView"></component>
+	    </box>
+	    
+	    <script type="text/x-template" id="box">
+	    	<transition name="viewbox">
+	    		<div class="lightbox-container">
+	    			<div class="lightbox" @click.self="$emit('close')">
+	    				<div class="container">
+	    					<slot></slot>
+	    				</div>
+	    			</div>
+	    		</div>
+	    	</transition>
+	    </script>
+	    
+	</div>
+	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.js"></script>
+	<script>
+		Vue.component('slot1',{
+			template: `<p>註冊事項</p>`
+		});
+		Vue.component('slot2',{
+			template: `<p>網站公告</p>`
+		});
+		Vue.component('slot3',{
+			template: `<p>隱私權政策</p>`
+		});
+		Vue.component('box', {
+			template: '#box',
+		})
+		new Vue({
+			el: "#app",
+			data: {
+				showBox: false,
+				currentView: 'slot1'
+			},
+			methods: {
+				openBox: function(view){
+					this.showBox = true,
+					this.currentView = view
+				},
+			}
+		})
+	</script>
+</body>
+
+</html>
