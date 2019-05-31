@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>練習2</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.js"></script>
+  <style>
+    #app {
+      font-size: 1.25em;
+    }
+
+    button {
+      font-size: 1.5em;
+    }
+
+    label {
+      display: block;
+    }
+
+    .quest {
+      margin-bottom: 1em;
+      padding-bottom: 1em;
+      border-bottom: 1px solid #ccc;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!--
+練習2： 一個簡單的心理測驗遊戲
+1. 改寫網頁，透過 v-for 將題目與選項依序列出
+2. 按下「看結果」按鈕計算總分
+3. 按下「重置」按鈕重置選項
+-->
+
+  <div id="app">
+    <h1>簡單的心理測驗</h1>
+    <hr>
+    <div class="quest" v-for="(q,idxQ) in questions.slice(currQus-1 ,currQus-1 + countOfQus)">
+      <!-- <h3>第{{ idxQ + 1 }}題: {{ q.quest }}</h3> -->
+      <h3>第{{ currQus }}題: {{ q.quest }}</h3>
+      <label v-for="(a,idxA) in q.options"><input type="radio" :value="a.value" v-model="q.selected" @change="print(q)"> {{ idxA + 1 }}. {{ a.ans }}</label>
+    </div>
+    <button @click="setQus(currQus - 1)" v-if="currQus > 1">上一題</button>
+    <button @click="settlement()" v-if="currQus === questions.length">看結果</button>
+    <button @click="reset()">重置</button>
+    <button @click="setQus(currQus + 1)" v-if="currQus < questions.length">下一題</button>
+  </div>
+
+
+  <script>
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        questions: [{
+            quest: '如果你是童話故事中，想吃掉三隻小豬的大野狼，你認為使用哪一種方法可以容易吃掉他們？',
+            options: [{
+                ans: '用煙把小豬燻到昏倒',
+                value: 1
+              },
+              {
+                ans: '從煙囪或其他入口偷偷爬進屋',
+                value: 2
+              },
+              {
+                ans: '用槌子把門破壞闖入屋內',
+                value: 3
+              },
+              {
+                ans: '模仿豬媽媽的聲音騙小豬開門',
+                value: 4
+              },
+            ],
+            selected: null,
+          },
+          {
+            quest: '剪刀、石頭、布，你第一直覺會出哪一個？',
+            options: [{
+                ans: '剪刀',
+                value: 3
+              },
+              {
+                ans: '石頭',
+                value: 2
+              },
+              {
+                ans: '布',
+                value: 1
+              },
+            ],
+            selected: null
+          },
+          {
+            quest: '下列四項運動項目中，假設你要開始嘗試的話，你最想要做哪一項？',
+            options: [{
+                ans: '潛水',
+                value: 3
+              },
+              {
+                ans: '滑翔翼',
+                value: 4
+              },
+              {
+                ans: '滑水',
+                value: 2
+              },
+              {
+                ans: '長途徒步旅行',
+                value: 1
+              },
+            ],
+            selected: null,
+          }
+        ],
+        currQus: 1,
+        countOfQus: 1, 
+      },
+      computed: {
+        total: function () {
+          let count = 0;
+          for(var i = 0; i < this.questions.length; i++){
+            count += this.questions[i].selected;
+          }
+          return count;
+        },
+        checking: function(){
+          // console.log(this.questions[this.currQus-1].selected);
+          return this.questions[this.currQus-1].selected;
+        }
+      },
+      methods: {
+        settlement: function () {
+          // console.log(this.total);
+          window.alert("total: "+  this.total)
+        },
+        reset: function () {
+          this.questions.forEach(function(v){
+            v.selected = null;
+          });
+          this.currQus = 1;
+        },
+        setQus: function(page){
+          
+          if(!this.checking){
+            console.log("not select")
+            alert("請選擇您的回答")
+          } else {
+            console.log("selected")
+            if(page <= 0 || page > this.questions.length){
+              return;
+            }
+            this.currQus = page;
+          }
+          // console.log(this.checking);
+        },
+        print: function(item){
+          console.log(item.selected);
+        }
+      },
+    });
+  </script>
+</body>
+
+</html>
