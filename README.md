@@ -1,3 +1,5 @@
-# vue_event
+# vue_practice
 exercise of vue
-"# vue-practive" 
+"# vue-practice" 
+
+
