@@ -1,0 +1,46 @@
+@import '_default'
+
+.vue-lightbox
+	ul 
+		max-width: 400px
+		margin: 50px auto
+		text-align: center
+		li 
+			display: inline-block
+			vertical-align: middle
+			margin: 10px
+
+			a 
+				display: inline-block
+				padding: 10px 15px
+				border: 1px solid lightgrey
+
+				&:hover
+					background-color: #ddd
+
+	.lightbox 
+		position: fixed
+		display: flex
+		align-items: center
+		justify-content: center
+		top: 0
+		left: 0
+		right: 0
+		bottom: 0
+		background-color: rgba(#000,0.7)
+		transition: all 15s ease
+		.container
+			background-color: #fff
+			padding: 20px 35px
+			max-width: 600px
+			max-height: 400px
+			overflow: auto
+			transition: all .35s ease
+
+.viewbox-enter, .viewbox-leave-active
+	opacity: 0
+	transition: all .35s ease
+	.container
+		transform: scale(1.1)
+		transition: all .35s ease
+
