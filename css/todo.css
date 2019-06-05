@@ -1,0 +1,123 @@
+@charset "UTF-8";
+@import url(../node_modules/normalize.css/normalize.css);
+body {
+  font-family: 'Open Sans', 'sans-serif', '微軟正黑體', 'Ping-Fang'; }
+
+a {
+  text-decoration: none;
+  color: #000; }
+  a:active, a:visited {
+    color: #000; }
+
+* {
+  box-sizing: border-box; }
+
+input {
+  outline: 0; }
+
+ul, li {
+  margin: 0;
+  padding: 0;
+  list-style: none; }
+
+.vue-todo {
+  padding: 20px;
+  font-family: 'Gudea'; }
+  .vue-todo .input {
+    display: flex;
+    padding: 15px;
+    box-shadow: 0 1px 4px 0 rgba(238, 238, 238, 0.5);
+    align-items: center; }
+    .vue-todo .input input {
+      height: 2em;
+      min-width: 150px;
+      border: 0;
+      line-height: 2em;
+      padding: 5px;
+      background-color: rgba(170, 170, 170, 0.1); }
+    .vue-todo .input .btn-add {
+      position: relative;
+      display: inline-block;
+      width: 2em;
+      height: 2em;
+      margin-left: 8px;
+      border: 1px solid #ddd;
+      border-radius: 100%; }
+      .vue-todo .input .btn-add:before, .vue-todo .input .btn-add:after {
+        content: '';
+        display: inline-block;
+        position: absolute;
+        background-color: #aaa;
+        width: 60%;
+        height: 1px;
+        transform: translate(-50%, -50%);
+        top: 50%;
+        left: 50%; }
+      .vue-todo .input .btn-add:after {
+        transform: translate(-50%, -50%) rotate(90deg); }
+  .vue-todo .content {
+    box-shadow: 0 1px 4px 0 rgba(238, 238, 238, 0.5); }
+  .vue-todo .filter {
+    padding: 5px 15px;
+    border-bottom: 1px solid #eee; }
+    .vue-todo .filter li {
+      display: inline-block;
+      margin: 10px 5px; }
+      .vue-todo .filter li a {
+        position: relative;
+        color: #bbb;
+        padding: 2px 5px; }
+        .vue-todo .filter li a:before {
+          content: '';
+          display: block;
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          width: 100%;
+          height: 100%;
+          border: 1px solid transparent;
+          border-radius: 3px;
+          transform: translate(-50%, -50%) scale(0);
+          opacity: 0;
+          transition: all .18s ease-in-out; }
+        .vue-todo .filter li a.active {
+          color: #666; }
+          .vue-todo .filter li a.active:before {
+            border-color: #666;
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 1;
+            transition: all .18s ease-in-out; }
+  .vue-todo .list li {
+    display: flex;
+    padding: 10px;
+    align-items: center;
+    border-bottom: 1px solid #eee; }
+    .vue-todo .list li:hover .btn-delete {
+      opacity: 1;
+      transition: all .15s ease-in-out; }
+    .vue-todo .list li label {
+      padding: 0 10px 0 5px; }
+    .vue-todo .list li .btn-delete {
+      width: 12px;
+      height: 12px;
+      position: relative;
+      display: inline-block;
+      opacity: 0;
+      transition: all .15s ease-in-out; }
+      .vue-todo .list li .btn-delete:before, .vue-todo .list li .btn-delete:after {
+        content: "";
+        position: absolute;
+        display: block;
+        width: 100%;
+        height: 1px;
+        top: 6px;
+        background-color: #ccc; }
+      .vue-todo .list li .btn-delete:before {
+        transform: rotate(45deg); }
+      .vue-todo .list li .btn-delete:after {
+        transform: rotate(-45deg); }
+    .vue-todo .list li.todo-left {
+      font-size: 12px; }
+  .vue-todo .list .done label {
+    color: #ddd;
+    text-decoration: line-through; }

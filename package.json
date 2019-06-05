@@ -3,10 +3,15 @@
   "version": "1.0.0",
   "main": "gulpfile.js",
   "dependencies": {
+    "gulp-autoprefixer": "^6.1.0",
     "gulp-sass": "^4.0.2"
   },
   "devDependencies": {
+    "del": "^4.1.1",
     "gulp": "^4.0.2",
+    "gulp-filter": "^6.0.0",
+    "gulp-notify": "^3.2.0",
+    "gulp-plumber": "^1.2.1",
     "normalize.css": "^8.0.1"
   },
   "scripts": {

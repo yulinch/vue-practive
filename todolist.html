@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0">
+	<title>title</title>
+	<link href="https://fonts.googleapis.com/css?family=Gudea&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="css/todo.css">
+</head>
+
+<body>
+	<div id="app" class="vue-todo">
+		<h2>Todo List</h2>
+	    <div class="input">
+	    	<input type="text" v-model="todo" @keyup.enter="add">
+	    	<a href="javascript:;" @click.prevent="add" class="btn-add"></a>
+	    </div>
+	    <div class="content">
+	    	<div class="filter">
+	    		<li><a href="javascript:;" @click="open('all')" :class="{active: currentView === 'all'}">All</a></li>
+	    		<li><a href="javascript:;" @click="open('active')" :class="{active: currentView === 'active'}">Active</a></li>
+	    		<li><a href="javascript:;" @click="open('complete')" :class="{active: currentView === 'complete'}">Complete</a></li>
+	    	</div>
+	    	<div class="list">
+	    		<component :is="currentView" :list="list"></component>
+	    	</div>
+	    </div>
+	</div>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.js"></script>
+	<script type="text/x-template" id="all">
+		<ul class="todoList">
+			<li v-for="t in list" :class="{done : t.isDone == true}">
+				<input type="checkbox" v-model="t.isDone" :id="t.id" :key="t.id">
+				<label :for="t.id">{{ t.name }}</label>
+				<div class="edit-tools">
+					<a href="javascript:;" class="btn-delete" @click.prevent="deleteTodo(item)"></a>
+				</div>
+			</li>
+			<li class="todo-left">{{todoList.length}} left</li>
+		</ul>
+	</script>
+
+	<script type="text/x-template" id="active">
+		<ul class="todoList">
+			<li v-if="todoList.length == 0">All clear!</li>
+			<li v-for="t in todoList" :class="{done : t.isDone == true}">
+				<input type="checkbox" v-model="t.isDone" :id="t.id" :key="t.id">
+				<label :for="t.id">{{ t.name }}</label>
+				<div class="edit-tools">
+					<a href="javascript:;" class="btn-delete" @click.prevent="deleteTodo(item)"></a>
+				</div>
+			</li>
+		</ul>
+	</script>
+	<script type="text/x-template" id="complete">
+		<ul class="todoList">
+			<li v-for="t in finishList" :class="{done : t.isDone == true}">
+				<input type="checkbox" v-model="t.isDone" :id="t.id" :key="t.id">
+				<label :for="t.id">{{ t.name }}</label>
+				<div class="edit-tools">
+					<a href="javascript:;" class="btn-delete" @click.prevent="deleteTodo(item)"></a>
+				</div>
+			</li>
+		</ul>
+	</script>
+	<script>
+		Vue.component('all', {
+			template: '#all',
+			props: {
+				list: Array
+			},
+			computed: {
+				todoList: function(){
+					return this.list.filter(function(d){
+						return d.isDone == false;
+					})
+				},
+			}
+		});
+
+		Vue.component('active', {
+			template: '#active',
+			props: {
+				list: Array
+			},
+			computed:{
+				todoList: function(){
+					return this.list.filter(function(d){
+						return d.isDone == false;
+					})
+				},
+			}
+		});
+
+		Vue.component('complete', {
+			template: '#complete',
+			props: {
+				list: Array
+			},
+			computed: {
+				finishList: function(){
+					return this.list.filter(function(d){
+						return d.isDone == true;
+					})
+				},
+			}
+		});
+
+		new Vue({
+			el: "#app",
+			data:{
+				todo: '',
+				list: [
+					{
+						id: 1,
+						name: 'test',
+						isDone: false,
+					},
+					{
+						id: 2,
+						name: 'test2',
+						isDone: true
+					}
+				],
+				currentView: 'all'
+			},
+			computed:{
+			},
+			methods: {
+				add: function(){
+					this.todoList.push({
+						name: this.todo, 
+						isDone: false,
+						id: new Date().getTime()
+					});
+					this.todo = ''					
+				},
+				deleteTodo: function(item){
+					this.todoList.splice(this.todoList.index, 1)
+				},
+				open: function(val){
+					this.currentView = val;
+				}
+			},
+		})
+	</script>
+</body>
+
+</html>

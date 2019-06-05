@@ -20,7 +20,7 @@ gulp.task('sass', function(){
 		outputStyle: 'nested'
 	}))
 	.pipe(gulp.dest('css'))
-	.pipe(gulpNotify("Websites CSS Finish"));
+	// .pipe(gulpNotify("Websites CSS Finish"));
 	done();
 });
 
