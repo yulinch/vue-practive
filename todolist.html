@@ -7,17 +7,28 @@
 	<meta name="viewport" content="width=device-width,initial-scale=1.0">
 	<title>title</title>
 	<link href="https://fonts.googleapis.com/css?family=Gudea&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css">
 	<link rel="stylesheet" href="css/todo.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/js/all.min.js"></script>
 </head>
 
 <body>
-	<div id="app" class="vue-todo">
-		<h2>Todo List</h2>
-	    <div class="input">
+	<div id="app" class="vue-todo" :class="{isDark : isDark == true}">
+		<div class="title">
+			<h2>Todo List</h2>
+			<div class="switch">
+				<input type="checkbox" id="colorMode" v-model="nightMode" @click="modeChange">
+				<label for="colorMode">
+					<span class="day"><i class="fas fa-sun"></i></span>
+					<span class="night"><i class="fas fa-moon"></i></span>
+				</label>
+			</div>
+		</div>
+	    <div class="input" :class="{isDark : isDark == true}">
 	    	<input type="text" v-model="todo" @keyup.enter="add">
 	    	<a href="javascript:;" @click.prevent="add" class="btn-add"></a>
 	    </div>
-	    <div class="content">
+	    <div class="content" :class="{isDark : isDark == true}">
 	    	<div class="filter">
 	    		<li><a href="javascript:;" @click="open('all')" :class="{active: currentView === 'all'}">All</a></li>
 	    		<li><a href="javascript:;" @click="open('active')" :class="{active: currentView === 'active'}">Active</a></li>
@@ -35,10 +46,10 @@
 				<input type="checkbox" v-model="t.isDone" :id="t.id" :key="t.id">
 				<label :for="t.id">{{ t.name }}</label>
 				<div class="edit-tools">
-					<a href="javascript:;" class="btn-delete" @click.prevent="deleteTodo(item)"></a>
+					<a href="javascript:;" class="btn-delete" @click.prevent="deleteTodo()"><i class="far fa-trash-alt"></i></a>
 				</div>
 			</li>
-			<li class="todo-left">{{todoList.length}} left</li>
+			<li class="todo-left">{{todoList.length}} {{todoList.length > 1 ? 'items' : 'item'}} left</li>
 		</ul>
 	</script>
 
@@ -49,7 +60,7 @@
 				<input type="checkbox" v-model="t.isDone" :id="t.id" :key="t.id">
 				<label :for="t.id">{{ t.name }}</label>
 				<div class="edit-tools">
-					<a href="javascript:;" class="btn-delete" @click.prevent="deleteTodo(item)"></a>
+					<a href="javascript:;" class="btn-delete" @click.prevent="deleteTodo()"><i class="far fa-trash-alt"></i></a>
 				</div>
 			</li>
 		</ul>
@@ -60,7 +71,7 @@
 				<input type="checkbox" v-model="t.isDone" :id="t.id" :key="t.id">
 				<label :for="t.id">{{ t.name }}</label>
 				<div class="edit-tools">
-					<a href="javascript:;" class="btn-delete" @click.prevent="deleteTodo(item)"></a>
+					<a href="javascript:;" class="btn-delete" @click.prevent="deleteTodo()"><i class="far fa-trash-alt"></i></a>
 				</div>
 			</li>
 		</ul>
@@ -77,6 +88,11 @@
 						return d.isDone == false;
 					})
 				},
+			},
+			methods: {
+				deleteTodo: function(d){
+					this.list.splice(this.list.indexOf(d), 1)
+				},
 			}
 		});
 
@@ -90,6 +106,11 @@
 					return this.list.filter(function(d){
 						return d.isDone == false;
 					})
+				},
+			},
+			methods: {
+				deleteTodo: function(d){
+					this.list.splice(this.list.indexOf(d), 1)
 				},
 			}
 		});
@@ -105,13 +126,18 @@
 						return d.isDone == true;
 					})
 				},
+			},
+			methods: {
+				deleteTodo: function(d){
+					this.list.splice(this.list.indexOf(d), 1)
+				},
 			}
 		});
 
 		new Vue({
 			el: "#app",
 			data:{
-				todo: '',
+				todo: 'test',
 				list: [
 					{
 						id: 1,
@@ -124,13 +150,16 @@
 						isDone: true
 					}
 				],
-				currentView: 'all'
+				currentView: 'all',
+				nightMode: false,
+				isDark: false
 			},
 			computed:{
+				
 			},
 			methods: {
 				add: function(){
-					this.todoList.push({
+					this.list.push({
 						name: this.todo, 
 						isDone: false,
 						id: new Date().getTime()
@@ -138,10 +167,15 @@
 					this.todo = ''					
 				},
 				deleteTodo: function(item){
-					this.todoList.splice(this.todoList.index, 1)
+					// this.list.splice(this.list.index, 1)
+					console.log(item);
 				},
 				open: function(val){
 					this.currentView = val;
+				},
+				modeChange: function(){
+					this.nightMode = !this.nightMode;
+					this.isDark = !this.isDark;
 				}
 			},
 		})

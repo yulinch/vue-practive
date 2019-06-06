@@ -15,6 +15,7 @@ gulp.task('clean', function(done) {
 
 gulp.task('sass', function(){
 	return gulp.src('sass/**/*.sass')
+    .pipe(autoprefixer())
 	// .pipe(sass().on('error', sass.logError))
 	.pipe(sass({
 		outputStyle: 'nested'

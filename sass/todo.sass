@@ -1,22 +1,124 @@
 @import '_default'
 
-.vue-todo
-	padding: 20px
-	font-family: 'Gudea'
+%lightbox
+	box-shadow: 0 0 4px 0 rgba(#ddd, 0.5)
 
+.vue-todo
+	min-height: 100vh
+	font-family: 'Gudea'
+	padding: 20px
+	transition: all .3s ease-out
+	transition: color .1s ease-out
+
+	*
+		transition: all .3s ease-out
+		transition: color .1s ease-out	
+
+	&.isDark
+		background-color: #333
+		color: #ddd
+		transition: color .1s ease-out
+
+		*
+			transition: all .3s ease-out
+			transition: color .1s ease-out	
+
+		.input
+			input
+				color: #f5f5f5
+
+	.title 
+		display: flex
+		align-items: center
+
+		h2
+			flex: 1
+
+		.switch
+			position: relative
+			margin-left: 10px
+
+		input[type="checkbox"]
+			display: inline-block
+			position: relative
+			appearance: none
+			-webkit-appearance: none
+			cursor: pointer
+			width: 50px
+			height: 22px
+			border-radius: 22px
+			background-color: #969696
+			box-shadow: inset 1px 1px 5px 0 rgba(#737373, .6)
+			transition: all .3s ease-out 0.1s
+
+			&:checked
+				background-color: #3a3ad4
+				transition: all .3s ease-in-out
+				&:before
+					left: calc(100% - 18px - 2px)
+					transition: all .3s ease-in-out
+
+			&:before 
+				content: ''
+				position: absolute
+				display: block
+				width: 18px
+				height: 18px
+				top: 2px
+				left: 2px
+				border-radius: 100%
+				background-color: #e4e4e4
+				transition: all .3s ease-out
+				z-index: 1
+
+			~ label
+				font-size: 12px
+				color: #efefef
+				cursor: pointer
+
+				.day
+					position: absolute
+					right: 8px
+					top: 5px
+
+				.night
+					position: absolute
+					left: 8px
+					top: 5px
+					color: #fff9c4
+					
 	.input
 		display: flex
-		// border-bottom: 1px solid #eee
 		padding: 15px
-		box-shadow: 0 1px 4px 0 rgba(#eee, 0.5)
+		// box-shadow: 0 0 4px 0 rgba(#ddd, 0.5)
 		align-items: center
+		border: 1px solid #eee
+		border-bottom: 0
+
+		&.isDark
+			border-color: #585858
+			// box-shadow: 0 1px 4px 0 rgba(#777, 0.5)
+
+			input
+				background-color: rgba(#dadada, 0.3)
+				box-shadow: inset 0 0 15px 0 rgba(#3c3c3c, 0.7)
+
+			.btn-add
+				border: 1px solid #777
+
+				&:before, &:after 
+					background-color: #777
+
 		input 
 			height: 2em
+			width: 65%
+			max-width: 350px
 			min-width: 150px
 			border: 0
 			line-height: 2em
 			padding: 5px
 			background-color: rgba(#aaa, 0.1)
+			box-shadow: inset 0 0 15px 0 rgba(#aaa, 0.2)
 
 		.btn-add 
 			position: relative
@@ -24,14 +126,13 @@
 			width: 2em
 			height: 2em
 			margin-left: 8px
-			border: 1px solid #ddd
+			border: 1px solid #aaa
 			border-radius: 100%
 
 			&:before, &:after 
 				content: ''
 				display: inline-block
 				position: absolute
-				// top: 1em
 				background-color: #aaa
 				width: 60%
 				height: 1px
@@ -43,12 +144,30 @@
 				transform: translate(-50%, -50%) rotate(90deg)
 
 	.content 
-		// padding: 15px
-		box-shadow: 0 1px 4px 0 rgba(#eee, 0.5)
+		border: 1px solid #eee
+		border-bottom: 0
+
+		&.isDark
+			border-color: #585858
+
+			.filter
+				border-bottom: 1px solid #585858
+				li 
+					a
+						color: #9e9e9e
+						&.active
+							color: #e6e6e6
+
+							&:before
+								border-color: #e6e6e6
+
+			.list
+				li 
+					&:not(:last-child)
+						border-bottom: 1px solid #585858
 
 	.filter
 		padding: 5px 15px
-		// text-align: center
 		border-bottom: 1px solid #eee
 		li 
 			display: inline-block
@@ -73,9 +192,9 @@
 					opacity: 0
 					transition: all .18s ease-in-out
 
-
 				&.active
 					color: #666
+
 					&:before
 						border-color: #666
 						transform: translate(-50%, -50%) scale(1)
@@ -85,45 +204,43 @@
 	.list 
 		li 
 			display: flex
-			padding: 10px
 			align-items: center
+			padding: 10px
 			border-bottom: 1px solid #eee
 
 			&:hover 
-				.btn-delete
+				.edit-tools
 					opacity: 1
 					transition: all .15s ease-in-out
 
 			label
 				padding: 0 10px 0 5px
 
-			.btn-delete
-				width: 12px
-				height: 12px
-				position: relative
-				display: inline-block
+			.edit-tools
 				opacity: 0
+				margin-left: 5px
+				font-size: 12px
+				color: #ccc
 				transition: all .15s ease-in-out
 
-				&:before, &:after
-					content: ""
-					position: absolute
-					display: block
-					width: 100%
-					height: 1px
-					top: 6px
-					background-color: #ccc
+				a 
+					display: inline-block
+					vertical-align: middle
+					padding: 4px
+					color: #aaa
 
-				&:before 
-					transform: rotate(45deg)
-
-				&:after 
-					transform: rotate(-45deg)
+					&:hover 
+						color: #222
 
 			&.todo-left
 				font-size: 12px
+
+		input[type="text"]
+			padding: 5px
 
 		.done 
 			label 
 				color: #ddd
 				text-decoration: line-through
+
+

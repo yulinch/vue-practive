@@ -1,7 +1,8 @@
 @charset "UTF-8";
 @import url(../node_modules/normalize.css/normalize.css);
 body {
-  font-family: 'Open Sans', 'sans-serif', '微軟正黑體', 'Ping-Fang'; }
+  font-family: 'Open Sans', 'sans-serif', '微軟正黑體', 'Ping-Fang';
+  height: 100%; }
 
 a {
   text-decoration: none;
@@ -21,27 +22,106 @@ ul, li {
   list-style: none; }
 
 .vue-todo {
+  min-height: 100vh;
+  font-family: 'Gudea';
   padding: 20px;
-  font-family: 'Gudea'; }
+  transition: all .3s ease-out;
+  transition: color .1s ease-out; }
+  .vue-todo * {
+    transition: all .3s ease-out;
+    transition: color .1s ease-out; }
+  .vue-todo.isDark {
+    background-color: #333;
+    color: #ddd;
+    transition: color .1s ease-out; }
+    .vue-todo.isDark * {
+      transition: all .3s ease-out;
+      transition: color .1s ease-out; }
+    .vue-todo.isDark .input input {
+      color: #f5f5f5; }
+  .vue-todo .title {
+    display: flex;
+    align-items: center; }
+    .vue-todo .title h2 {
+      flex: 1; }
+    .vue-todo .title .switch {
+      position: relative;
+      margin-left: 10px; }
+    .vue-todo .title input[type="checkbox"] {
+      display: inline-block;
+      position: relative;
+      appearance: none;
+      -webkit-appearance: none;
+      cursor: pointer;
+      width: 50px;
+      height: 22px;
+      border-radius: 22px;
+      background-color: #969696;
+      box-shadow: inset 1px 1px 5px 0 rgba(115, 115, 115, 0.6);
+      transition: all .3s ease-out 0.1s; }
+      .vue-todo .title input[type="checkbox"]:checked {
+        background-color: #3a3ad4;
+        transition: all .3s ease-in-out; }
+        .vue-todo .title input[type="checkbox"]:checked:before {
+          left: calc(100% - 18px - 2px);
+          transition: all .3s ease-in-out; }
+      .vue-todo .title input[type="checkbox"]:before {
+        content: '';
+        position: absolute;
+        display: block;
+        width: 18px;
+        height: 18px;
+        top: 2px;
+        left: 2px;
+        border-radius: 100%;
+        background-color: #e4e4e4;
+        transition: all .3s ease-out;
+        z-index: 1; }
+      .vue-todo .title input[type="checkbox"] ~ label {
+        font-size: 12px;
+        color: #efefef;
+        cursor: pointer; }
+        .vue-todo .title input[type="checkbox"] ~ label .day {
+          position: absolute;
+          right: 8px;
+          top: 5px; }
+        .vue-todo .title input[type="checkbox"] ~ label .night {
+          position: absolute;
+          left: 8px;
+          top: 5px;
+          color: #fff9c4; }
   .vue-todo .input {
     display: flex;
     padding: 15px;
-    box-shadow: 0 1px 4px 0 rgba(238, 238, 238, 0.5);
-    align-items: center; }
+    align-items: center;
+    border: 1px solid #eee;
+    border-bottom: 0; }
+    .vue-todo .input.isDark {
+      border-color: #585858; }
+      .vue-todo .input.isDark input {
+        background-color: rgba(218, 218, 218, 0.3);
+        box-shadow: inset 0 0 15px 0 rgba(60, 60, 60, 0.7); }
+      .vue-todo .input.isDark .btn-add {
+        border: 1px solid #777; }
+        .vue-todo .input.isDark .btn-add:before, .vue-todo .input.isDark .btn-add:after {
+          background-color: #777; }
     .vue-todo .input input {
       height: 2em;
+      width: 65%;
+      max-width: 350px;
       min-width: 150px;
       border: 0;
       line-height: 2em;
       padding: 5px;
-      background-color: rgba(170, 170, 170, 0.1); }
+      background-color: rgba(170, 170, 170, 0.1);
+      box-shadow: inset 0 0 15px 0 rgba(170, 170, 170, 0.2); }
     .vue-todo .input .btn-add {
       position: relative;
       display: inline-block;
       width: 2em;
       height: 2em;
       margin-left: 8px;
-      border: 1px solid #ddd;
+      border: 1px solid #aaa;
       border-radius: 100%; }
       .vue-todo .input .btn-add:before, .vue-todo .input .btn-add:after {
         content: '';
@@ -56,7 +136,20 @@ ul, li {
       .vue-todo .input .btn-add:after {
         transform: translate(-50%, -50%) rotate(90deg); }
   .vue-todo .content {
-    box-shadow: 0 1px 4px 0 rgba(238, 238, 238, 0.5); }
+    border: 1px solid #eee;
+    border-bottom: 0; }
+    .vue-todo .content.isDark {
+      border-color: #585858; }
+      .vue-todo .content.isDark .filter {
+        border-bottom: 1px solid #585858; }
+        .vue-todo .content.isDark .filter li a {
+          color: #9e9e9e; }
+          .vue-todo .content.isDark .filter li a.active {
+            color: #e6e6e6; }
+            .vue-todo .content.isDark .filter li a.active:before {
+              border-color: #e6e6e6; }
+      .vue-todo .content.isDark .list li:not(:last-child) {
+        border-bottom: 1px solid #585858; }
   .vue-todo .filter {
     padding: 5px 15px;
     border-bottom: 1px solid #eee; }
@@ -89,35 +182,31 @@ ul, li {
             transition: all .18s ease-in-out; }
   .vue-todo .list li {
     display: flex;
-    padding: 10px;
     align-items: center;
+    padding: 10px;
     border-bottom: 1px solid #eee; }
-    .vue-todo .list li:hover .btn-delete {
+    .vue-todo .list li:hover .edit-tools {
       opacity: 1;
       transition: all .15s ease-in-out; }
     .vue-todo .list li label {
       padding: 0 10px 0 5px; }
-    .vue-todo .list li .btn-delete {
-      width: 12px;
-      height: 12px;
-      position: relative;
-      display: inline-block;
+    .vue-todo .list li .edit-tools {
       opacity: 0;
+      margin-left: 5px;
+      font-size: 12px;
+      color: #ccc;
       transition: all .15s ease-in-out; }
-      .vue-todo .list li .btn-delete:before, .vue-todo .list li .btn-delete:after {
-        content: "";
-        position: absolute;
-        display: block;
-        width: 100%;
-        height: 1px;
-        top: 6px;
-        background-color: #ccc; }
-      .vue-todo .list li .btn-delete:before {
-        transform: rotate(45deg); }
-      .vue-todo .list li .btn-delete:after {
-        transform: rotate(-45deg); }
+      .vue-todo .list li .edit-tools a {
+        display: inline-block;
+        vertical-align: middle;
+        padding: 4px;
+        color: #aaa; }
+        .vue-todo .list li .edit-tools a:hover {
+          color: #222; }
     .vue-todo .list li.todo-left {
       font-size: 12px; }
+  .vue-todo .list input[type="text"] {
+    padding: 5px; }
   .vue-todo .list .done label {
     color: #ddd;
     text-decoration: line-through; }

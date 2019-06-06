@@ -1,7 +1,8 @@
 @charset "UTF-8";
 @import url(../node_modules/normalize.css/normalize.css);
 body {
-  font-family: 'Open Sans', 'sans-serif', '微軟正黑體', 'Ping-Fang'; }
+  font-family: 'Open Sans', 'sans-serif', '微軟正黑體', 'Ping-Fang';
+  height: 100%; }
 
 a {
   text-decoration: none;
