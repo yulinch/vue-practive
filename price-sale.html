@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0">
+	<title>title</title>
+	<link rel="stylesheet" href="css/style.css">
+	<style>
+		.red{
+			color: red;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="app">
+	    <p>buy two and get 20% off</p>
+	    <input type="text" id="priceA" v-model.number="priceA">
+	    <input type="text" id="priceB" v-model.number="priceB">
+	    <p class="red">{{checkPrice}}</p>
+	    <p>price: <input type="text" id="price" v-model="price" :disabled="true"></p>
+	    <p>sale: <input type="text" id="sale" v-model="sale"></p>
+	  </div>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.js"></script>
+	<script>
+		new Vue({
+		  el: "#app",
+		  data: {
+		    priceA : "",
+		    priceB : "",
+		  },
+		  computed: {
+		    checkPrice: function(){
+		      if(this.priceA != "" && this.priceB !=""){
+		        if(isNaN(this.priceA) || isNaN(this.priceB)){
+		        return "please input number"
+		      }
+		      if(this.priceA < 25 || this.priceB < 25){
+		        return "price should larger than 25"
+		      }
+		      }
+		    },
+		    price: function(){
+		      if(this.priceA !== "" && this.priceB != ""){
+		        return parseInt(this.priceA)+ parseInt(this.priceB)
+		      } else {
+		        return ""
+		      }
+		    },
+		    sale: function(){
+		      var priceA = this.priceA,
+		          priceB = this.priceB;
+		      if(this.priceA !== "" && this.priceB != ""){
+		        if(priceA < priceB){
+		        return Math.round(priceA * 0.8) + priceB;
+		      } else{
+		        return Math.round(priceB * 0.8) + priceA;
+		      }
+		      }
+		    }
+		  }
+		})
+	</script>
+</body>
+
+</html>

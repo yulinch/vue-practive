@@ -26,5 +26,13 @@
   },
   "author": "",
   "license": "ISC",
-  "description": ""
+  "description": "exercise of vue \"# vue-practice\"",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yulinch/vue-practice.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yulinch/vue-practice/issues"
+  },
+  "homepage": "https://github.com/yulinch/vue-practice#readme"
 }
