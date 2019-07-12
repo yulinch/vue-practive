@@ -2,7 +2,8 @@
 @import url(../node_modules/normalize.css/normalize.css);
 body {
   font-family: 'Open Sans', 'sans-serif', '微軟正黑體', 'Ping-Fang';
-  height: 100%; }
+  height: 100%;
+  margin: 0; }
 
 a {
   text-decoration: none;
@@ -148,7 +149,7 @@ ul, li {
             color: #e6e6e6; }
             .vue-todo .content.isDark .filter li a.active:before {
               border-color: #e6e6e6; }
-      .vue-todo .content.isDark .list li:not(:last-child) {
+      .vue-todo .content.isDark .list li {
         border-bottom: 1px solid #585858; }
   .vue-todo .filter {
     padding: 5px 15px;
